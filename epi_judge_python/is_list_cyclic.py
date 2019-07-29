@@ -5,8 +5,43 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
+def advance_iterator(on_loop,head):
+    '''
+    Takes a node on the loop and the head and returns the node
+    that is in front of the head by the length of the loop number of
+    steps
+    :param on_loop:
+    :param head:
+    :return:
+    '''
+    start=on_loop
+    adv_it=head
+    while True:
+        start=start.next
+        adv_it=adv_it.next
+        if start is on_loop:
+            return adv_it
+
 def has_cycle(head):
-    # TODO - you fill in here.
+    slow,fast=head,head
+    while fast and fast.next and fast.next:
+        slow=slow.next
+        fast=fast.next.next
+
+        if slow is fast:
+            # A loop has been found
+
+            # Two pointers that are separated by the length of the loop
+            # The lagging one starts at the head
+            lag_it,adv_it=head,advance_iterator(slow,head)
+
+
+            while lag_it is not adv_it:
+                lag_it=lag_it.next
+                adv_it=adv_it.next
+
+            return lag_it
+
     return None
 
 
