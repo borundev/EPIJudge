@@ -1,9 +1,13 @@
 from test_framework import generic_test
 
-
 def remove_duplicates(L):
     # TODO - you fill in here.
-    return None
+    it=L
+    while it:
+        while it.next and it.data==it.next.data:
+            it.next=it.next.next
+        it=it.next
+    return L
 
 
 if __name__ == '__main__':

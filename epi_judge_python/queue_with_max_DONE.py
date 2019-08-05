@@ -3,13 +3,22 @@ from test_framework.test_failure import TestFailure
 
 
 class QueueWithMax:
+    def __init__(self):
+        self.l=[]
+        self.max_and_next_max={}
+        self.global_max=0
+
     def enqueue(self, x):
         # TODO - you fill in here.
+        self.l.append(x)
+        if x>self.global_max:
+
         return
 
     def dequeue(self):
         # TODO - you fill in here.
-        return 0
+        x=self.popleft()
+        return x
 
     def max(self):
         # TODO - you fill in here.
@@ -44,5 +53,5 @@ def queue_tester(ops):
 
 if __name__ == '__main__':
     exit(
-        generic_test.generic_test_main("queue_with_max.py",
+        generic_test.generic_test_main("queue_with_max_DONE.py",
                                        'queue_with_max.tsv', queue_tester))

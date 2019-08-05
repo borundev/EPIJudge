@@ -3,20 +3,36 @@ from test_framework.test_failure import TestFailure
 
 
 class Stack:
+
+    def __init__(self):
+        # A list of tuples with (val,max_at_insert)
+        # max_at_insert is the max when the value is inserted
+        self.l=[]
+
     def empty(self):
         # TODO - you fill in here.
-        return True
+        return not bool(len(self.l))
 
     def max(self):
         # TODO - you fill in here.
-        return 0
+        try:
+            return self.l[-1][1]
+        except IndexError:
+            return -float('inf')
+
 
     def pop(self):
         # TODO - you fill in here.
-        return 0
+        try:
+            return self.l.pop()[0]
+        except IndexError:
+            return
 
     def push(self, x):
         # TODO - you fill in here.
+        # the max at time of insert is the max of new value and old max
+        n_max=max(x,self.max())
+        self.l.append((x,n_max))
         return
 
 
@@ -52,5 +68,5 @@ def stack_tester(ops):
 
 if __name__ == '__main__':
     exit(
-        generic_test.generic_test_main("stack_with_max.py",
+        generic_test.generic_test_main("stack_with_max_DONE.py",
                                        'stack_with_max.tsv', stack_tester))
