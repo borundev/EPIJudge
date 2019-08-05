@@ -2,13 +2,22 @@ from test_framework import generic_test
 
 
 class Queue:
+
+    def __init__(self):
+        self.l1=[]
+        self.l2=[]
+
     def enqueue(self, x):
-        # TODO - you fill in here.
+        self.l1.append(x)
         return
 
     def dequeue(self):
-        # TODO - you fill in here.
-        return 0
+        if self.l2:
+            return self.l2.pop()
+        else:
+            while len(self.l1)>1:
+                self.l2.append(self.l1.pop)
+            return self.l1.pop()
 
 
 def queue_tester(ops):
@@ -35,5 +44,5 @@ def queue_tester(ops):
 
 if __name__ == '__main__':
     exit(
-        generic_test.generic_test_main("queue_from_stacks.py",
+        generic_test.generic_test_main("queue_from_stacks_DONE.py",
                                        'queue_from_stacks.tsv', queue_tester))
