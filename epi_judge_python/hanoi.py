@@ -9,8 +9,28 @@ NUM_PEGS = 3
 
 
 def compute_tower_hanoi(num_rings: int) -> List[List[int]]:
-    # TODO - you fill in here.
-    return []
+
+    def hanoi_tower_helper(nr,initial_peg, final_peg, use_peg):
+        if nr>0:
+
+            # move the top nr-1 disks from the initial peg to the use peg
+            hanoi_tower_helper(nr-1,initial_peg,use_peg,final_peg)
+
+            # move the last peg to the final one and record that move
+            pegs[final_peg].append(pegs[initial_peg].pop())
+            result.append([initial_peg,final_peg])
+
+            # move the nr-1 disks moved earlier to the use peg to the final peg
+            hanoi_tower_helper(nr - 1, use_peg, final_peg, initial_peg)
+
+    result =[]
+
+    # initialize the pegs with all the disks on the first one
+    pegs = [list(reversed(range(1,num_rings+1)))] + [[] for _ in range(1,NUM_PEGS)]
+
+    hanoi_tower_helper(num_rings,0,1,2)
+
+    return result
 
 
 @enable_executor_hook
