@@ -21,7 +21,7 @@ def generate_power_set(input_set: List[int]) -> List[List[int]]:
         while x:
             m.append(input_set[int(math.log2(x & ~(x-1)))])
             x &= (x-1)
-        result.append(list(m))
+        result.append(m)
     return result
 
 
