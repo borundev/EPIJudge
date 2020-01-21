@@ -8,26 +8,7 @@ from test_framework.test_utils import enable_executor_hook
 RED, WHITE, BLUE = range(3)
 
 
-
 def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
-    # TODO - you fill in here.
-
-    for i in range(len(A)):
-        for j in range(i+1,len(A)):
-            if A[j]<pivot:
-                A[i],A[j]=A[j],A[i]
-                break
-
-    for i in reversed(range(len(A))):
-        if A[i]<pivot:
-            # second pass so if we reach here we are already past larger and equal elements.
-            break
-        for j in reversed(range(i)):
-            if A[j]>pivot:
-                A[i],A[j]=A[j],A[i]
-                break
-
-def dutch_flag_partition_On(pivot_index, A):
     pivot = A[pivot_index]
 
     smaller=0

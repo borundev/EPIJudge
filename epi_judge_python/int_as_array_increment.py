@@ -4,7 +4,6 @@ from test_framework import generic_test
 
 
 def plus_one(A: List[int]) -> List[int]:
-    # TODO - you fill in here.
     A[-1]+=1
     for i in reversed(range(1,len(A))):
         if A[i] != 10:

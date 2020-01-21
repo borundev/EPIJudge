@@ -1,5 +1,6 @@
 from test_framework import generic_test
-
+from list_node import ListNode
+from typing import Optional
 
 def stable_sort_list(L: ListNode) -> Optional[ListNode]:
     if L is None or L.next is None:
@@ -53,5 +54,5 @@ def merge_two_sorted_lists(a,b):
 
 if __name__ == '__main__':
     exit(
-        generic_test.generic_test_main("sort_list_DONE.py", 'sort_list.tsv',
+        generic_test.generic_test_main("sort_list.py", 'sort_list.tsv',
                                        stable_sort_list))

@@ -9,7 +9,6 @@ class LruCache:
         return
 
     def lookup(self, isbn: int) -> int:
-        # TODO - you fill in here.
         if isbn not in self._isbns:
             return -1
         price=self._isbns.pop(isbn)
@@ -54,6 +53,5 @@ def lru_cache_tester(commands):
 
 if __name__ == '__main__':
     exit(
-
         generic_test.generic_test_main('lru_cache.py', 'lru_cache.tsv',
                                        lru_cache_tester))

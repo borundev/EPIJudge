@@ -4,8 +4,7 @@ from test_framework import generic_test, test_utils
 
 
 def generate_power_set(input_set: List[int]) -> List[List[int]]:
-    # TODO - you fill in here.
-    n = len(S)
+    n = len(input_set)
 
     result=[]
     for x in range(1 << n):
@@ -13,7 +12,7 @@ def generate_power_set(input_set: List[int]) -> List[List[int]]:
         i = 0
         while x:
             if x & 1:
-                m.add(S[i])
+                m.add(input_set[i])
             x = x >> 1
             i += 1
         result.append(list(m))

@@ -1,8 +1,7 @@
 from test_framework import generic_test
 
 
-def evaluate(expression):
-    # TODO - you fill in here.
+def evaluate(expression: str) -> int:
 
     int_result=[]
     delimeter=','
@@ -22,5 +21,5 @@ def evaluate(expression):
 
 if __name__ == '__main__':
     exit(
-        generic_test.generic_test_main("evaluate_rpn_DONE.py", 'evaluate_rpn.tsv',
+        generic_test.generic_test_main('evaluate_rpn.py', 'evaluate_rpn.tsv',
                                        evaluate))

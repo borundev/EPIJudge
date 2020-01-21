@@ -2,11 +2,9 @@ from typing import Optional
 
 from list_node import ListNode
 from test_framework import generic_test
-from list_node import ListNode
 
 def merge_two_sorted_lists(L1: Optional[ListNode],
                            L2: Optional[ListNode]) -> Optional[ListNode]:
-    # TODO - you fill in here.
     dummy_head=ListNode()
     p=dummy_head
     while (L1 and L2):

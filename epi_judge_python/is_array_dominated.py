@@ -16,7 +16,6 @@ class Team:
     # Checks if team0 can be placed in front of team1.
     @staticmethod
     def valid_placement_exists(team0: 'Team', team1: 'Team') -> bool:
-        # TODO - you fill in here.
 
         for a,b in zip(sorted(team0._players),sorted(team1._players)):
             if a>=b:
@@ -39,6 +38,6 @@ def valid_placement_exists_wrapper(executor, team0, team1, expected_01,
 
 if __name__ == '__main__':
     exit(
-        generic_test.generic_test_main("is_array_dominated.py",
+        generic_test.generic_test_main('is_array_dominated.py',
                                        'is_array_dominated.tsv',
                                        valid_placement_exists_wrapper))

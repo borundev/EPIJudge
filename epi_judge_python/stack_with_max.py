@@ -3,17 +3,14 @@ from test_framework.test_failure import TestFailure
 
 
 class Stack:
-<<<<<<< HEAD:epi_judge_python/stack_with_max_DONE.py
 
     def __init__(self):
         # A list of tuples with (val,max_at_insert)
         # max_at_insert is the max when the value is inserted
         self.l=[]
 
-    def empty(self):
-=======
+
     def empty(self) -> bool:
->>>>>>> master:epi_judge_python/stack_with_max.py
         # TODO - you fill in here.
         return not bool(len(self.l))
 
@@ -72,9 +69,5 @@ def stack_tester(ops):
 
 if __name__ == '__main__':
     exit(
-<<<<<<< HEAD:epi_judge_python/stack_with_max_DONE.py
-        generic_test.generic_test_main("stack_with_max_DONE.py",
-=======
         generic_test.generic_test_main('stack_with_max.py',
->>>>>>> master:epi_judge_python/stack_with_max.py
                                        'stack_with_max.tsv', stack_tester))
