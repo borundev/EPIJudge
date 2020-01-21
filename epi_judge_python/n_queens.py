@@ -4,7 +4,22 @@ from test_framework import generic_test
 
 
 def n_queens(n: int) -> List[List[int]]:
+    """
+    Returns all possible placements of non attacking queens on nxn chessboard. The information is
+    returned as a list of list where the inner list containes the columns of the queens
+
+    :param n: number of queens
+    :return:
+    """
+
     def helper_func(row):
+        """
+        Tries to places a queen of row. If this is more than the number of queens it means that all
+        the queens have been successfully placed so the placements are appended to the master result.
+        Otherwise if the placement is valid, the function is called for the next row.
+        :param row:
+        :return:
+        """
         if row==n:
             result.append(col_result.copy())
         else:
