@@ -1,7 +1,7 @@
 from test_framework import generic_test
 
 
-def power(x, y):
+def power(x: float, y: int) -> float:
     result,power=1,y
 
     # if power is negative we solve the problem for 1/x while flipping the sign of the power
@@ -18,6 +18,7 @@ def power(x, y):
     return result
 
 
+
 if __name__ == '__main__':
-    exit(
-        generic_test.generic_test_main("power_x_y.py", 'power_x_y.tsv', power))
+    exit(generic_test.generic_test_main('power_x_y.py', 'power_x_y.tsv',
+                                        power))
