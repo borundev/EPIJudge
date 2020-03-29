@@ -65,7 +65,7 @@ problem_mapping = {
                 "passed": 0,
                 "total": 10000
             },
-            "Python: closest_int_same_weight.py": { 
+            "Python: closest_int_same_weight.py": {
                 "passed": 0,
                 "total": 10000
             }
@@ -1974,7 +1974,7 @@ problem_mapping = {
                 "total": 10
             },
             "Python: hanoi.py": {
-                "passed": 0,
+                "passed": 10,
                 "total": 10
             }
         },
@@ -2002,7 +2002,7 @@ problem_mapping = {
                 "total": 10
             },
             "Python: n_queens.py": {
-                "passed": 0,
+                "passed": 10,
                 "total": 10
             }
         },
@@ -2044,7 +2044,7 @@ problem_mapping = {
                 "total": 120
             },
             "Python: combinations.py": {
-                "passed": 0,
+                "passed": 120,
                 "total": 120
             }
         },
