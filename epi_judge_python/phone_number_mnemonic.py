@@ -2,35 +2,33 @@ from typing import List
 
 from test_framework import generic_test, test_utils
 
+MAPPINGS = ('0', '1',
+            'ABC',
+            'DEF',
+            'GHI',
+            'JKL',
+            'MNO',
+            'PQRS',
+            'TUV',
+            'WXYZ')
 
 def phone_mnemonic(phone_number: str) -> List[str]:
-    MAPPINGS=('0','1',
-              'ABC',
-              'DEF',
-              'GHI',
-              'JKL',
-              'MNO',
-              'PQRS',
-              'TUV',
-              'WXYZ')
 
+    def helper(pos):
+        if pos==len(phone_number):
+            results.append(''.join(partial_result))
+            return
 
+        for c in MAPPINGS[int(phone_number[pos])]:
+            partial_result.append(c)
+            helper(pos+1)
+            partial_result.pop()
 
-    def mnemonic_helper(d):
-        if d==len(phone_number):
-            result.append(''.join(partial_result))
-        else:
-            n=int(phone_number[d])
-            for c in MAPPINGS[n]:
-                partial_result.append(c)
-                mnemonic_helper(d+1)
-                partial_result.pop()
-
-
-    result = []
+    results=[]
     partial_result=[]
-    mnemonic_helper(0)
-    return result
+    helper(0)
+
+    return results
 
 
 if __name__ == '__main__':
