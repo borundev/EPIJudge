@@ -9,23 +9,54 @@ RED, WHITE, BLUE = range(3)
 
 
 def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
-    pivot = A[pivot_index]
 
-    smaller=0
-    for i in range(len(A)):
-        if A[i] < pivot:
-            A[i], A[smaller] = A[smaller], A[i]
-            smaller+=1
+    pivot_val=A[pivot_index]
 
-    larger=len(A)-1
+    equal_start=0
+    unassigned_start=0
+    bigger_start=len(A)
 
-    for i in reversed(range(len(A))):
-        if A[i] < pivot:
-            # second pass so if we reach here we are already past larger and equal elements.
-            break
-        if A[i] > pivot:
-            A[i], A[larger] = A[larger], A[i]
-            larger-=1
+    # the smaller ones will be in A[:equal_start]
+    # the ones equal to pivot will be in A[equal_start:unassigned_start]
+    # the unassigned ones will be in A[unassigned_start:bigger_start]
+    # the ones bigger will be in A[bigger_start:]
+
+    # Invariants
+    # so equal_start is pointing at the first of the equal_to_pivot
+    # unassigned_start is pointing to the first of unassigned
+    # bigger_start is pointing to the first of the bigger
+
+
+    # at each step in the loop, the unassigned region shrinks
+    # either from unassigned_start+=1 or bigger_start-=1
+
+    while unassigned_start<bigger_start:
+        if A[unassigned_start]<pivot_val:
+            # exchange the unassigned start with the equal start
+            A[unassigned_start],A[equal_start]=A[equal_start],A[unassigned_start]
+            # now the equal start has an element less than the pivot
+            # while the unassigned start has an element equal to the pivot
+
+            # So we adjust the values of equal_start and unassigned start to
+            # be consistent with the new state of affairs
+            equal_start+=1
+            unassigned_start += 1
+
+        elif A[unassigned_start]>pivot_val:
+            # exchanged the unassigned start with the unassigned end
+            A[unassigned_start],A[bigger_start-1]=A[bigger_start-1],A[unassigned_start]
+            # now the unassigned end is bigger than the pivot
+            # however the unassigned beginning is still unassigned
+
+            # So we adjust _only_ the values of bigger_start to be
+            # consistent with the new state of affair
+            bigger_start -= 1
+        else:
+            # The unassigned_start turns out to be equal to the pivot
+            # So we adjust the unassigned start to be consistent
+            # with the new state of affairs
+            unassigned_start+=1
+    return
 
 def dutch_flag_partition_On_v2(pivot_index, A):
     pivot = A[pivot_index]
