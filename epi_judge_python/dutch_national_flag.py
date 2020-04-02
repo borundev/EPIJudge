@@ -58,25 +58,6 @@ def dutch_flag_partition(pivot_index: int, A: List[int]) -> None:
             unassigned_start+=1
     return
 
-def dutch_flag_partition_On_v2(pivot_index, A):
-    pivot = A[pivot_index]
-
-    smaller,equal,larger=0,0,len(A)
-    while equal<larger:
-
-        if A[equal] < pivot:
-            A[equal], A[smaller] = A[smaller], A[equal]
-            smaller+=1
-            equal+=1
-        elif A[equal] == pivot:
-            equal += 1
-        else:
-            larger-=1
-            A[equal], A[larger] = A[larger], A[equal]
-
-
-dutch_flag_partition=dutch_flag_partition_On_v2
-
 @enable_executor_hook
 def dutch_flag_partition_wrapper(executor, A, pivot_idx):
     count = [0, 0, 0]
