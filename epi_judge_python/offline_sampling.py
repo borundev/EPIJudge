@@ -1,5 +1,6 @@
 import functools
 from typing import List
+import random
 
 from test_framework import generic_test
 from test_framework.random_sequence_checker import (
@@ -9,7 +10,18 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def random_sampling(k: int, A: List[int]) -> None:
-    # TODO - you fill in here.
+    
+    l=len(A)
+    
+    # partition array into two parts
+    # A[:start_unsampled] are already randomly sampled
+    # A[start_unsampled:l] are yet to be
+    # so we sample uniformly from the latter and exchanged the sampled with the beginning
+    # On the next round the beginning of the unsampled becomes the end of the sampled
+
+    for start_unsampled in range(k):
+        rand_idx = random.randint(start_unsampled,l-1)
+        A[start_unsampled],A[rand_idx]=A[rand_idx],A[start_unsampled]
     return
 
 
