@@ -3,20 +3,24 @@ from test_framework import generic_test
 
 def evaluate(expression: str) -> int:
 
-    int_result=[]
-    delimeter=','
-    operators={'+': lambda y,x : x+y,
-               '-': lambda y,x: x-y,
-               '/': lambda y,x:x//y,
-               '*': lambda y,x:x*y}
+    result = []
+    delimiter = ','
 
-    for t in expression.split(delimeter):
-        if t in operators:
-            int_result.append(operators[t](int_result.pop(),int_result.pop()))
+    operators = {
+        '+' : lambda y,x: x+y,
+        '-' : lambda y,x:x-y,
+        '/' : lambda y,x:x//y,
+        '*' : lambda y,x: x*y
+        }
+
+    for token in expression.split(delimiter):
+        operator = operators.get(token,None)
+        if not operator:
+            result.append(int(token))
         else:
-            # t is an int
-            int_result.append(int(t))
-    return int_result[-1]
+            y,x=result.pop(),result.pop()
+            result.append(operator(y,x))
+    return result.pop()
 
 
 if __name__ == '__main__':
