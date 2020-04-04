@@ -6,9 +6,35 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
-
 def has_cycle(head: ListNode) -> Optional[ListNode]:
-    # TODO - you fill in here.
+    slow=fast=head
+    while fast and fast.next and fast.next.next:
+        slow=slow.next
+        fast=fast.next.next
+        if slow is fast: # found a cycle
+
+            # find the length
+            p,cycle_length=slow,0
+            while True:
+                p=p.next
+                cycle_length+=1
+                if p is slow:
+                    break
+
+            # make lag point to head and lead point cycle_length steps forward
+            lag=lead=head
+            for _ in range(cycle_length):
+                lead=lead.next
+
+            # move both lag and lead till they match
+            while lead is not lag:
+                lead=lead.next
+                lag=lag.next
+
+            # the point of intersection is the start of the cycle
+            return lag
+
+
     return None
 
 
