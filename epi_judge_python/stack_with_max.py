@@ -1,39 +1,27 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
-
+from collections import namedtuple
 
 class Stack:
 
-    def __init__(self):
-        # A list of tuples with (val,max_at_insert)
-        # max_at_insert is the max when the value is inserted
-        self.l=[]
+    DataWithMax=namedtuple('DataWithMax',('value','max'))
 
+    def __init__(self):
+        self.stack=[]
 
     def empty(self) -> bool:
-        # TODO - you fill in here.
-        return not bool(len(self.l))
+        return not self.stack
 
     def max(self) -> int:
-        # TODO - you fill in here.
-        try:
-            return self.l[-1][1]
-        except IndexError:
-            return -float('inf')
-
+        return self.stack[-1].max
 
     def pop(self) -> int:
-        # TODO - you fill in here.
-        try:
-            return self.l.pop()[0]
-        except IndexError:
-            return
+        tmp=self.stack.pop()
+        return tmp.value
 
     def push(self, x: int) -> None:
-        # TODO - you fill in here.
-        # the max at time of insert is the max of new value and old max
-        n_max=max(x,self.max())
-        self.l.append((x,n_max))
+        x_max=x if self.empty() else max(self.max(),x)
+        self.stack.append(Stack.DataWithMax(x,x_max))
         return
 
 
