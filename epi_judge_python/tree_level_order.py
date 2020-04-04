@@ -2,20 +2,20 @@ from typing import List
 
 from binary_tree_node import BinaryTreeNode
 from test_framework import generic_test
-
+from collections import deque
 
 def binary_tree_depth_order(tree: BinaryTreeNode) -> List[List[int]]:
-    result=[]
-    if not tree:
-        return result
-    current_layer=[tree]
 
-    while current_layer:
-        result.append([curr.data for curr in current_layer])
-        current_layer=[
-            child for curr in current_layer
-            for child in (curr.left,curr.right) if child
-        ]
+    result=[]
+    if tree:
+        queue = deque([tree])
+        while queue:
+            next_queue = deque()
+            result.append([elem.data for elem in queue])
+            while queue:
+                element = queue.popleft()
+                next_queue.extend(filter(lambda x: bool(x),[element.left,element.right]))
+            queue = next_queue
     return result
 
 
