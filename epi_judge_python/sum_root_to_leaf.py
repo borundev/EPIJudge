@@ -3,8 +3,23 @@ from test_framework import generic_test
 
 
 def sum_root_to_leaf(tree: BinaryTreeNode) -> int:
-    # TODO - you fill in here.
-    return 0
+
+    def helper(tree, partial_sum=0):
+        """
+
+        Takes the partial_sum passed to it and multiplies it by 2 and add its own value before
+        calling itself on the child nodes
+
+        :param tree:
+        :param partial_sum:
+        :return:
+        """
+        if not tree:
+            return 0
+        partial_sum = 2*partial_sum+tree.data
+        return helper(tree.left,partial_sum)+helper(tree.right,partial_sum)
+
+    return helper(tree)
 
 
 if __name__ == '__main__':
