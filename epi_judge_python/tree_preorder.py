@@ -3,10 +3,24 @@ from typing import List
 from binary_tree_node import BinaryTreeNode
 from test_framework import generic_test
 
+from collections import namedtuple
+TreeFirstVisit = namedtuple('TreeFirstVisit',('tree','firstvisit'))
+
 
 def preorder_traversal(tree: BinaryTreeNode) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    result = []
+    stack = [TreeFirstVisit(tree,True)]
+
+    while stack:
+        stack_element = stack.pop()
+        if stack_element.tree:
+            if not stack_element.firstvisit:
+                result.append(stack_element.tree.data)
+            else:
+                stack.append(TreeFirstVisit(stack_element.tree.right, True))
+                stack.append(TreeFirstVisit(stack_element.tree.left, True))
+                stack.append(TreeFirstVisit(stack_element.tree,False))
+    return result
 
 
 if __name__ == '__main__':
