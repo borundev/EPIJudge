@@ -1,29 +1,36 @@
 from binary_tree_node import BinaryTreeNode
 from test_framework import generic_test
 
-import collections
-
 def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
 
-    BalancedStatusWithHeight=collections.namedtuple('BalancedStatusWithHeight',
-                                                    ('balanced','height'))
+    class UnbalancedException(Exception):
+        pass
 
-    def check_balanced_tree(tree):
-        if not tree:
-            return BalancedStatusWithHeight(True,-1)
 
-        lr=check_balanced_tree(tree.left)
-        if not lr.balanced:
-            return lr
+    def helper(root):
+        """
+        This function returns the height of the tree and raises an excpetion if it is unbalanced
+        :param root:
+        :return:
+        """
+        if not root:
+            return -1
+        else:
+            left=helper(root.left)
+            right=helper(root.right)
 
-        rr=check_balanced_tree(tree.right)
-        if not rr.balanced:
-            return rr
+            balanced= abs(left-right)<=1
 
-        return BalancedStatusWithHeight(abs(lr.height-rr.height)<=1,max(lr.height,rr.height)+1)
+            if not balanced:
+                raise UnbalancedException()
 
-    return check_balanced_tree(tree).balanced
-
+            height = max(left,right)+1
+            return height
+    try:
+        helper(tree)
+    except UnbalancedException as e:
+        return False
+    return True
 
 if __name__ == '__main__':
     exit(
