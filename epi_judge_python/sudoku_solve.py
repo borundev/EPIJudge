@@ -9,70 +9,31 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def solve_sudoku(partial_assignment: List[List[int]]) -> bool:
-    '''
-    Solves a partially filled sudoku. In the bulk of the function we refer to a location by just
-    one index i which is related to row and column by i = r * n + c where n is the length of the
-    board.
-
-    :param partial_assignment:
-    :return:
-    '''
-
-
-    # set the size of the board
-    N = len(partial_assignment)
-    n = int(math.sqrt(N))
-
-    def get_val(i):
-        r, c = i // N, i % N
-        return partial_assignment[r][c]
-
-    def set_val(i,val):
-        r, c = i // N, i % N
-        partial_assignment[r][c] = val
-
-    def allowed_at(i, val):
-        r, c = i // N, i % N
-        if val in partial_assignment[r]:
-            return False
-        if val in [partial_assignment[j][c] for j in range(N)]:
-            return False
-
-        for _r in range(r // n * n, r // n * n + n):
-            for _c in range(c // n * n, c // n * n + n):
-                if val == partial_assignment[_r][_c]:
-                    return False
-        return True
-
 
     def helper(i):
-        '''
-        Try all possible values at location i. If i exceeeds the board size,  it means the board
-        is full and return True. If the value at i is not 0, it means that the location is
-        already filled so move on to the next location.
-        :param i:
-        :return:
-        '''
-        if i == N * N:
-            # filled the whole board
+
+        if i == 81:
             return True
 
-        if get_val(i) != 0:
-            # the value if already filled
-            return helper(i + 1)
+        row=i//9
+        col=i%9
 
-        for val in range(1, N + 1):
-            if allowed_at(i, val):
-                set_val(i,val)
-                result = helper(i + 1)
-                if result:
-                    # if True has been passed on from above, it means that we have solved the
-                    # problem so just pass it on
+
+        if partial_assignment[row][col] != 0:
+            return helper(i+1)
+        else:
+            row_elements=partial_assignment[row]
+            col_elements=[partial_assignment[j][col] for j in range(9)]
+            box_elements=[partial_assignment[row//3*3+i][col//3*3+j] for i in range(3) for j in
+                          range(3)]
+            unallowed_elements=set(row_elements).union(col_elements).union(box_elements)
+            for n in (x for x in range(1,10) if x not in unallowed_elements):
+                partial_assignment[row][col]=n
+                if helper(i+1):
                     return True
-        # if none of the values worked (returned True) that means there was a wrong step earlier,
-        # so roll back and return False
-        set_val(i,0)
-        return False
+
+            partial_assignment[row][col]=0
+            return False
 
     return helper(0)
 
