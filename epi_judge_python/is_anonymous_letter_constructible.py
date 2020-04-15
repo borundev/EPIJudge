@@ -1,10 +1,10 @@
 from test_framework import generic_test
-
+from collections import Counter
 
 def is_letter_constructible_from_magazine(letter_text: str,
                                           magazine_text: str) -> bool:
-    # TODO - you fill in here.
-    return True
+
+    return not ( Counter(letter_text) - Counter(magazine_text) )
 
 
 if __name__ == '__main__':
