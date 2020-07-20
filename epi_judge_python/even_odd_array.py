@@ -8,8 +8,18 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def even_odd(A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+    # We have to put all even entries in the beginning of the array
+    # This is done by keeping idx of even and odd places to be filled next
+    # and incrementing/decrementing when said index is correctly filled
+
+    next_even, next_odd = 0, len(A)-1
+    while next_even<=next_odd:
+        if not A[next_even] & 1:
+            next_even+=1
+        else:
+            A[next_even],A[next_odd]=A[next_odd],A[next_even]
+            next_odd-=1
+
 
 
 @enable_executor_hook
