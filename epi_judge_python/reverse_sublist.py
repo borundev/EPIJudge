@@ -7,43 +7,29 @@ from test_framework import generic_test
 def reverse_sublist(L: ListNode, start: int,
                     finish: int) -> Optional[ListNode]:
 
-    if not L:
-        return L
+    # dummy head will point at the head of the list
+    # sublist head will point at the first element of the sublist (which will change)
+    dummy_head = sublist_head = ListNode(0,L)
 
-    master=current_head=ListNode(0,L)
-
-    # go to the position right before start
+    # recall that first element of the list is called 1 here
     for _ in range(1,start):
-        current_head=current_head.next
+        sublist_head = sublist_head.next
 
+    # we point at the first member of the sublist and keep moving the node next to it
+    # to the beginning of the sublist
 
-    # current will go over the part that is to be flipped
-    # at the end it will point to the element right after the one flipped
+    # the variable first_element_sublist will start of pointing to the first element of the
+    # sublist and will keep pointing to the same node but
+    # it will end up pointing to the last element of the sublist
 
-    # new_tail will point to the first element to be flipped
+    first_element_sublist = sublist_head.next
 
-    current=new_tail=current_head.next
+    for _ in range(finish-start):
+        tmp=first_element_sublist.next
+        sublist_head.next, tmp.next, first_element_sublist.next  \
+            = tmp, sublist_head.next, tmp.next
 
-    # prev points to the element before the current one
-    # if we were flipping the entire list this would be set to None to begin with
-    # right now it does not matter what we set it to because in the end it wiil be set
-    # via new_tail.next to the element right after the last one being flipped
-    # that is why we had to store it.
-    prev=None
-
-    # Note the non standard notation of the question - the first element is one and the finish
-    # element is included in the counting of how many to flip unlike that for arrays
-
-    for _ in range(finish-start+1):
-        nxt=current.next
-        current.next=prev
-        prev=current
-        current=nxt
-
-    current_head.next=prev
-    new_tail.next=current
-
-    return master.next
+    return dummy_head.next
 
 
 
