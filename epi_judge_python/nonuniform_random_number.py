@@ -14,8 +14,14 @@ from test_framework.test_utils import enable_executor_hook
 def nonuniform_random_number_generation(values: List[int],
                                         probabilities: List[float]) -> int:
 
-    cumsum_prob=itertools.accumulate(probabilities)
-    idx =  bisect.bisect(cumsum_prob,random.random())
+    cumsum_prob=list(itertools.accumulate(probabilities))
+
+    # the difference between bisect_left and bisect right is that both return
+    # and index idx such that
+    # bisect_left: a[:idx] <x and a[idx:] >= x
+    # bisect_right: a[:idx] <= x and a[idx:] > x
+    # for our purpose both are equivalent
+    idx = bisect.bisect_left(cumsum_prob,random.random())
 
     return values[idx]
 
