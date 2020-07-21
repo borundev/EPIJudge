@@ -4,24 +4,28 @@ from collections import namedtuple
 
 class Stack:
 
-    DataWithMax=namedtuple('DataWithMax',('value','max'))
 
     def __init__(self):
         self.stack=[]
+        self.stack_max=[]
 
     def empty(self) -> bool:
         return not self.stack
 
     def max(self) -> int:
-        return self.stack[-1].max
+        return self.stack_max[-1]
 
     def pop(self) -> int:
         tmp=self.stack.pop()
-        return tmp.value
+        if tmp == self.stack_max[-1]:
+            self.stack_max.pop()
+        return tmp
 
     def push(self, x: int) -> None:
-        x_max=x if self.empty() else max(self.max(),x)
-        self.stack.append(Stack.DataWithMax(x,x_max))
+
+        self.stack.append(x)
+        if not self.stack_max or x>=self.stack_max[-1]:
+            self.stack_max.append(x)
         return
 
 
