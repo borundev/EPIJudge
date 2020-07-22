@@ -1,10 +1,17 @@
 from binary_tree_node import BinaryTreeNode
 from test_framework import generic_test
 
+class HeightAndStatus:
+    def __init__(self,height,balanced):
+        self.height=height
+        self.balanced=balanced
+
+    def __bool__(self):
+        return self.balanced
+
 def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
 
-    class UnbalancedException(Exception):
-        pass
+
 
 
     def helper(root):
@@ -14,23 +21,21 @@ def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
         :return:
         """
         if not root:
-            return -1
+            return HeightAndStatus(-1,True)
         else:
             left=helper(root.left)
+            if not left:
+                return left
+
             right=helper(root.right)
+            if not right:
+                return right
 
-            balanced= abs(left-right)<=1
-
-            if not balanced:
-                raise UnbalancedException()
-
-            height = max(left,right)+1
-            return height
-    try:
-        helper(tree)
-    except UnbalancedException as e:
-        return False
-    return True
+            balanced = abs(left.height-right.height)<=1
+            height = max(left.height,right.height)+1
+            return HeightAndStatus(height,balanced)
+    result=helper(tree)
+    return result.balanced
 
 if __name__ == '__main__':
     exit(
