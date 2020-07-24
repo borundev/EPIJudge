@@ -11,8 +11,58 @@ Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 def find_smallest_sequentially_covering_subset(paragraph: List[str],
                                                keywords: List[str]
                                                ) -> Subarray:
-    # TODO - you fill in here.
-    return Subarray(0, 0)
+
+    """
+    The basic idea is to used
+
+    shortest_subarray_length[keyword_idx] = shortest_subarray_length[keyword_idx-1] \
+                                                + distance_to_prev_keyword
+    and
+
+    distance_to_prev_keyword = latest_occurence[keyword_idx] \
+                                       - latest_occurence[keyword_idx-1]
+
+    We initialize all the shortest_subarray_length to infty and this means unless the smaller
+    keyword_idx has been processed, we do not need to process the bigger one
+
+    :param paragraph:
+    :param keywords:
+    :return:
+    """
+
+    keyword_to_idx = {k:i for i,k in enumerate(keywords)}
+    latest_occurence = [-1] * len(keywords)
+    shortest_subarray_length = [float('inf')]*len(keywords)
+
+    result = Subarray(-1,-1)
+    shortest_distance  = float('inf')
+    for i,p in enumerate(paragraph):
+
+        if p not in keywords:
+            continue
+
+        keyword_idx = keyword_to_idx[p]
+        latest_occurence[keyword_idx] = i
+
+        if keyword_idx == 0:
+            shortest_subarray_length[keyword_idx]=1
+            continue
+
+        if shortest_subarray_length[keyword_idx-1] == float('inf'):
+            continue
+
+        distance_to_prev_keyword = latest_occurence[keyword_idx] \
+                                       - latest_occurence[keyword_idx-1]
+        shortest_subarray_length[keyword_idx] = shortest_subarray_length[keyword_idx-1] \
+                                                + distance_to_prev_keyword
+
+        # if we have reached the last keyword then we check if the full subarray is the shortest
+
+        if keyword_idx==len(keywords)-1 and shortest_subarray_length[-1] < shortest_distance:
+            shortest_distance = shortest_subarray_length[-1]
+            result = Subarray(i-shortest_distance+1,i)
+
+    return result
 
 
 @enable_executor_hook

@@ -16,7 +16,12 @@ def sum_root_to_leaf(tree: BinaryTreeNode) -> int:
         """
         if not tree:
             return 0
+
         partial_sum = 2*partial_sum+tree.data
+
+        if not tree.left and not tree.right:
+            return partial_sum
+
         return helper(tree.left,partial_sum)+helper(tree.right,partial_sum)
 
     return helper(tree)
